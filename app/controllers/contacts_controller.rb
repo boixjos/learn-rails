@@ -14,7 +14,7 @@ class ContactsController < ApplicationController
         @contact = Contact.new(secure_params)
         # check each of the validation requirements set in the model
         if @contact.valid?
-            # TODO send message
+            UserMailer.contact_email(@contact).deliver
             flash[:notice] = "Message sent from #{@contact.name}."
             redirect_to root_path
         else
